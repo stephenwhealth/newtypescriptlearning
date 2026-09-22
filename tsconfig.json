@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
+    // which javascript version to be conpiled to
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    // the typescript directory
     "baseUrl": "src",
+    // the javascript file to compile to
     "outDir": "dist",
     "sourceMap": true,
+    // catches any hidden bugs
     "noImplicitAny": true,
+    // allows proper importing of js module
     "esModuleInterop": true,
+    // enabling all types checking
     "strict": true
   },
   "include": ["src/**/*"]

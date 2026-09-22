@@ -101,3 +101,476 @@ enum Role{
 
 let userRole: Role = Role.Admin
 console.log(userRole);
+
+
+// INDEX SIGNATURES -- Index signatures can be used for objects without a defined list of properties.
+
+const nameAgeMap: { [index: string]: number } = {};
+nameAgeMap.Jack = 25; // no error
+// nameAgeMap.Mark = "Fifty"; // Error: Type 'string' is not assignable to type 'number'.
+
+
+// TYPE ALLIAS -- Type aliases are used to give a type a new name. Type aliases are sometimes similar to interfaces, but can name primitives, unions, tuples, and any other types that you'd otherwise have to write by hand.
+
+
+type User = {
+    name: string,
+    age: number
+}
+
+
+const student : User = {
+    name: "ebus",
+    age: 32
+}
+
+
+function printname(usr : User):string{
+    return `${usr.name} is ${usr.age} years old`
+}
+
+// OR
+
+type addme = (a:number, b:number)=> number;
+
+const addition : addme = (a,b) =>{
+    return a+b;
+}
+
+//  OR
+
+
+type CarYear = number
+type CarType = string
+type CarModel = string
+type Car = {
+  year: CarYear,
+  type: CarType,
+  model: CarModel
+}
+
+const carYear: CarYear = 2001
+const carType: CarType = "Toyota"
+const carModel: CarModel = "Corolla"
+const car: Car = {
+  year: carYear,
+  type: carType,
+  model: carModel
+};
+
+
+// UNION AND INTERSECTION TYPES -- Union types allow us to define a variable that can hold multiple types. Intersection types allow us to combine multiple types into one.
+
+type animal = { name: string };
+type Bear = animal & { honey: boolean };
+const bear: Bear = { name: "Winnie", honey: true };
+
+type Status = "success" | "error";
+let response: Status = "success";
+
+
+// OR
+
+
+type employer ={
+    name: string
+}
+
+type manager = {
+    empid: number
+}
+
+type staff = employer & manager;
+
+const person : staff ={
+    name: "ebus",
+    empid: 11
+}
+
+
+// OR
+
+type A ={a:number};
+type B ={b:number};
+
+function printdata(data: A&B):string{
+    return `a=${data.a}, b=${data.b}`
+}
+
+console.log(printdata({a:10, b:20}))
+
+
+
+// optional parameter in Type
+
+type Greet = (name?:string)=>string;
+
+const greeting:Greet=(name)=>{
+    return `hello` +(name || "guest")
+
+}
+
+console.log(greeting("ebus"));
+console.log(greeting());
+
+
+// INTERFACES -- Interfaces are used to define the shape of an object. They can be used to define the properties and methods that an object should have.
+
+interface Rectangle {
+  height: number;
+  width: number
+}
+
+const rectangle: Rectangle = {
+  height: 20,
+  width: 10
+};
+
+
+// INTERFACE MERGING -- Interface merging allows us to define multiple interfaces with the same name, and TypeScript will merge them into a single interface.
+
+interface Point {
+  x: number;
+}   
+
+interface Point {
+  y: number;
+}
+
+const point: Point = {
+  x: 10,
+  y: 20
+};  
+
+
+// OR
+
+interface Animal { 
+    name: string; 
+}; 
+
+interface Animal { 
+    age: number; 
+};
+
+const dog: Animal = { name: "Fido", age: 5 };
+
+
+// EXTENDING INTERFACES -- Interfaces can extend other interfaces, allowing us to create a new interface that includes all the properties of the original interface.
+
+interface Rectangle {
+  height: number,
+  width: number
+}
+
+interface ColoredRectangle extends Rectangle {
+  color: string
+}
+
+const coloredother: ColoredRectangle = {
+  height: 20,
+  width: 10,
+  color: "red"
+};
+
+console.log(coloredother)
+
+//                                              Optional interface
+
+interface Users {
+    name: string;
+    age?: number
+}
+
+const details:Users={
+    name: "odogwu"
+}
+
+
+const details2: User ={
+    name: "boss",
+    age: 32
+}
+
+
+//                                               FUNCTIONS
+
+function greet(name:string){
+    console.log('hello' +name)
+}
+
+greet("alex")
+
+
+//                                             UNION TYPE
+// union types allow us to define a variable that can hold multiple types. Intersection types allow us to combine multiple types into one.
+
+
+function printeduser(id: number | string):string{
+
+    return `id is` +id
+}
+
+// OR
+
+function printlength(value: number | string){
+
+    if(typeof value == "string"){
+        return value.length;
+    }
+    return value.toString().length;
+}
+
+// OR
+
+function printStatusCode(code: string | number) {
+  console.log(`My status code is ${code}.`)
+}
+console.log(printStatusCode(404));
+console.log(printStatusCode('404'));
+
+
+
+//                                     typescript function return types
+// the `: number` here specifies that this function returns a number
+
+function getTime(): number {
+  return new Date().getTime();
+}
+
+
+function addall(a: number, b:number):number{
+    return a+b;
+}
+
+console.log(addall(5,10))
+
+
+
+//                                               void return type
+// The type void can be used to indicate a function doesn't return any value.
+
+function printHello(): void {
+  console.log('Hello!');
+}
+
+
+
+//                                              function parameters
+// TypeScript allows us to specify the types of function parameters. This helps catch errors at compile time.
+
+function multiply(a: number, b: number) {
+  return a * b;
+}
+
+//                                              Normal Function
+
+function greetme(name:string){
+    return "hello" +name
+}
+
+console.log(greetme("ebule"))
+
+
+//                                            optional parameters
+// In TypeScript, we can specify that a parameter is optional by adding a question mark (?) after the parameter name.
+// optional paremeter should come after the required parameter
+
+function greetus(name?:string){
+
+    if(name){
+        return "hello" +name;
+    }
+    return "hello guest"
+}
+
+console.log(greetus());
+console.log(greetus("ebule"));
+
+// OR
+
+function adds(a: number, b: number, c?: number) {
+  return a + b + (c || 0);
+}
+
+
+// OR
+
+function greetUser(name:string, age?:number){
+    console.log("hello" +name)
+}
+
+
+greetUser('alexis');
+greetUser('ebule', 32);
+
+
+// default parameter
+
+function hello(name:string = "guest"):void{
+    console.log("hii" +name)
+}
+
+hello();
+hello("ebus");
+
+
+//                                                named parameters
+// TypeScript allows us to use named parameters in functions. This can make our code more readable and easier to understand.
+
+function divide({ dividend, divisor }: { dividend: number, divisor: number }) {
+  return dividend / divisor;
+}
+
+//                                               Rest parameters
+// TypeScript allows us to use rest parameters in functions. This allows us to pass an arbitrary number of arguments to a function.
+
+function totalsum(...numbers: number[]):number{
+    let total = 0;
+    for(let num of numbers){
+        total += num;
+    }
+
+    return total
+}
+
+console.log(totalsum(3,5,7,9,6));
+
+// OR
+
+function sum(...numbers: number[]) {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+
+// or
+
+function add(a: number, b: number, ...rest: number[]) {
+  return a + b + rest.reduce((p, c) => p + c, 0);
+}
+
+
+//                                               Arrow function in return type
+
+const substract = (a:number, b:number):number =>{
+    return a-b;
+}
+
+console.log(substract(10,5))
+
+
+//                                              Object types in typescript
+// using readonly will make the name or any value that is inserted into unable to change because its only to read
+
+const users: {readonly name: string; age: number} = {
+    name: "alexis",
+    age: 22
+}
+
+
+//                                          OBJECT TYPE IN FUNCTION
+
+function printuser(user:{name: string; age: number}):string{
+
+    return `hello my name is ${user.name} i am ${user.age} years old`
+}
+
+console.log(printuser({name:"kaka", age:32}));
+
+
+//                                        Narrowing with in operator
+
+type Userss = {name:string};
+type Admin = {role:string};
+
+function printin(person: Userss|Admin){
+    if("name" in person){
+        console.log(person.name)
+    }else{
+        console.log(person.role)
+    }
+}
+
+printin({name:"alexis"});
+// or
+printin({role:"Actor"});
+
+
+
+
+//                                               LITTERAL TYPE
+// Allowing a specific value or restricting a value for particular variable
+
+let direction : "up" | "down";
+
+direction = "up"
+console.log(direction);
+
+// OR
+function moves(spaces: "up" | "down"){
+    console.log(`moving` + spaces)
+}
+
+moves("down");
+
+
+// OR
+
+let dice : 1|2|3|3|5|6;
+dice=1;
+dice=2;
+dice=3
+
+
+// OR
+
+
+type status = "success" | "error" | "loading";
+
+type response = {
+    Status: status
+};
+
+const res: response = {
+    Status: "loading"
+} ;
+
+
+//                                               TYPE ASSUMPTION
+
+
+let values : any = "hello typescript";
+let length : number = (values as String).length;
+console.log(length)
+
+// OR
+
+let val : any = "hello typescript";
+let leng : number = (<string>val).length;
+console.log(leng)
+
+
+//                                              OPTIONAL CHAINING
+// IT ALLOWS YOU TO SAFELY ACCESS PROPERTIES
+
+const userprofile1 = {
+    name: "ebus",
+    address: {
+        city: "luck"
+    }
+}
+
+console.log(userprofile1.address?.city)
+
+// OR USING AN ARRAY
+
+const userprofile2 = [{name: "bubu", address:{city: "lucky"}}, null];
+console.log(userprofile2[0]?.name);
+console.log(userprofile2[1]?.name);
+
+
+//                                               Typescript casting 
+
+let x: unknown = 'hello';
+console.log((x as string).length);
+
+
