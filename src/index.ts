@@ -567,6 +567,75 @@ const userprofile2 = [{name: "bubu", address:{city: "lucky"}}, null];
 console.log(userprofile2[0]?.name);
 console.log(userprofile2[1]?.name);
 
+//                                          null callisting in Typescipt
+// null or undefined
+// ??
+
+let value1 = null;
+let result = value1 ?? "default"
+// console.log(result) default
+
+
+// ||
+let value2 = 0;
+let result1 = value2 || 100
+// console.log(result1) default
+// its seeing the 0 as a false when you use thr OR || operator
+
+let value3 = 0;
+let result2 = value3 ?? 100
+// console.log(result2) 0
+// this is giving the correct answer, you can only get the 100 when the value3 is either null or undefined
+
+
+
+//                                       Discriminated unions in Typescript
+// it is used to handle multiple object types
+
+type Circle = {radius : number}
+type Square = {side: number}
+
+function getArea(shape: Circle|Square){
+    if("radius" in shape){
+        return shape.radius * shape.radius
+    }else{
+        return shape.side * shape.side
+    }
+}
+
+getArea({radius:5})
+
+
+//                                               DISCRIMINATED UNION
+
+type Circle1 = {kind : "circle"; radius: number};
+type Square1 = {kind: "square"; side: number};
+
+function getAreas(shape: Circle1|Square1){
+
+    if(shape.kind === "circle"){
+        return Math.PI * shape.radius * shape.radius
+    }else{
+        return shape.side * shape.side
+    }
+}
+
+const circlearea = getAreas({
+    kind: "circle",
+    radius: 5
+})
+
+console.log(circlearea);
+
+//                                        THE UTILITY TYPES IN TYPESCRIPT
+// it helps to modify existing types
+
+type Manage = {
+    id: number;
+    name: string;
+    email: string
+
+}
 
 //                                               Typescript casting 
 
