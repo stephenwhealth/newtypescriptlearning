@@ -67,13 +67,17 @@ let items = [];
 // multi dimmention array
 let matrix: number[][] = [
     [1,2],
-    [4,5]
+    [4,5],
+    [4,3]
 ];
 
 // topple
 // difining arrays with missed types
-let mixed: (string|number)[] = [2, "alexis"];
+let mixed: (string|number)[] = [2, "alexis", 4, 6, "stephen"];
+console.log(mixed)
+
 // or
+// but this format can only allow 2 arguments;
 let othermised: [string,number] = ['mywon', 0];
 
 
@@ -81,14 +85,14 @@ let othermised: [string,number] = ['mywon', 0];
 // ennumeration: it allows us to define a group of related constants
 
 enum Direction{
-    up,
-    down,
-    left,
-    right
+    up,//0
+    down,//1
+    left,//2
+    right//3
 }
 
 let move: Direction = Direction.down;
-console.log(move);
+console.log(move);//1
 
 
 // string enum
@@ -99,12 +103,14 @@ enum Role{
     Guest = "GUEST"
 }
 
+console.log(Role.Admin)
+// or
 let userRole: Role = Role.Admin
 console.log(userRole);
 
 
 // INDEX SIGNATURES -- Index signatures can be used for objects without a defined list of properties.
-
+                //          key    : value
 const nameAgeMap: { [index: string]: number } = {};
 nameAgeMap.Jack = 25; // no error
 // nameAgeMap.Mark = "Fifty"; // Error: Type 'string' is not assignable to type 'number'.
@@ -124,10 +130,13 @@ const student : User = {
     age: 32
 }
 
+// or you use a function
 
 function printname(usr : User):string{
     return `${usr.name} is ${usr.age} years old`
 }
+
+console.log(printname({name: "alexis", age: 7}))
 
 // OR
 
@@ -136,6 +145,8 @@ type addme = (a:number, b:number)=> number;
 const addition : addme = (a,b) =>{
     return a+b;
 }
+
+console.log(addition(2,4))
 
 //  OR
 
@@ -630,12 +641,145 @@ console.log(circlearea);
 //                                        THE UTILITY TYPES IN TYPESCRIPT
 // it helps to modify existing types
 
-type Manage = {
+type Usser = {
     id: number;
     name: string;
     email: string
-
 }
+
+// Partial
+
+type PartialUser = Partial<Usser>;
+
+const useer: PartialUser ={
+    id: 1,
+}
+
+// Required
+type RequiredUser = Required<Usser>;
+
+const useer2 : RequiredUser={
+    id: 2,
+    name: "uhdhkjd",
+    email: "kjkkajsn/@khdch"
+}
+
+// Readonly
+type ReadonlyUser = Readonly<Usser>;
+
+const useer3: ReadonlyUser = {
+    id: 3,
+    name: "kjkjhkchk",
+    email: "bcabbk@hnkhxa"
+}
+
+// useer3.name = "ebus" .... This will throw me an error because it can't be changed.
+
+
+type Usser1 = {
+    id: number;
+    name: string;
+    email: string;
+    password: string
+}
+
+// Partial
+
+type PartialUser1 = Partial<Usser1>;
+
+function UpdateUser1(data:PartialUser1){
+    console.log("Updating User", data)
+}
+
+UpdateUser1({name: "alexis"})
+UpdateUser1({password: "gjghjghablHjk"})
+
+// Pick Utility type
+
+type Usser2 = {
+    id: number;
+    name: string;
+    email: string;
+    password: string
+}
+
+// Pick
+
+type PartialUser2 = Pick<Usser2, "name" | "email">;
+
+const Picked : PartialUser2 = {
+    name: "ada",
+    email: "bncbnbckn",
+    // "password" : "jlajlc" ..... Error because password is not picked
+}
+
+
+// Omit Utility
+
+
+type Usser3 = {
+    id: number;
+    name: string;
+    email: string;
+    password: string
+}
+
+// Omit
+
+type PartialUser3 = Omit<Usser3, "password">;
+
+const   remaining : PartialUser3 = {
+    id: 3,
+    name: "ada",
+    email: "bncbnbckn",
+    // "password" : "jlajlc" ..... Error because password has been omited
+}
+
+
+// Record
+// it's a utility type that helps you to create an object type
+// syntax
+const users1 : Record<string, string> = {};
+
+type Roles= "Admin" | "User" | "Guest";
+
+type Permission = Record<Roles, boolean>;
+
+const permit : Permission ={
+    Admin: true,
+    User: false,
+    Guest: false
+}
+
+
+// Keyof
+
+type keys = {
+    name: string;
+    age: number
+}
+
+function Getvalue(user: keys, key: keyof User){
+    return user[key]
+}
+
+const userfill = {name: "alexis", age: 9};
+
+console.log(Getvalue(userfill, "age"))
+console.log(Getvalue(userfill, "name"))
+
+
+// GENERIC FUNCTION
+// It allows you to write reuseable fuccction that work with different types while still keeping type safety.
+// Instead of fixing a type(like string or number) you use a placeholder type.
+
+function identity<T>(value: T):T {
+    return value;
+}
+
+identity<string>("hello");
+identity<number>(109)
+
 
 //                                               Typescript casting 
 
