@@ -103,7 +103,7 @@ enum Role{
     Guest = "GUEST"
 }
 
-console.log(Role.Admin)
+console.log(Role.Admin)//ADMIN
 // or
 let userRole: Role = Role.Admin
 console.log(userRole);
@@ -780,6 +780,143 @@ function identity<T>(value: T):T {
 identity<string>("hello");
 identity<number>(109)
 
+// GENERIC WITH INTERFACE
+interface box<T>{
+    values:T;
+    success: boolean
+}
+
+const numberBox : box<number> = {values: 10, success: true};
+const sringbox : box<string> = {values: "ebule", success: false};
+
+interface list<T>{
+    items : T[];
+}
+
+const numbers1 : list<number> ={
+   items: [1,2,3]
+}
+
+
+//                                               CLASS IN TYPESCRIPT
+// Class in typescrip is a blueprint for creating objects .
+
+
+class Person {
+    name: string;
+    age: number;
+
+    constructor(name: string, age:number){
+      this.name = name;
+      this.age= age
+    }
+
+    greet():string{
+        return `hello my name is ${this.name}`
+    }
+}
+
+const p1 = new Person("alexis", 20);
+console.log(p1.greet())
+
+//                                         Access modifier in Typescript
+
+class Bankaccount {
+    private balance :number = 0;
+
+    //setter
+    deposit(amount: number) {
+
+        if(amount >0){
+            this.balance += amount;
+        }
+    }
+    //getter
+    getBalance() {
+        return this.balance;
+    }
+}
+
+
+// private
+// not accessible outside class, not even in subclasses.
+// it enforces data hiding.
+
+
+class Accountbalance {
+    private balance :number = 0;
+
+    constructor(initialbalance: number) {
+        this.balance = initialbalance
+    }
+    
+    getBalance() {
+        return this.balance;
+    }
+}
+
+
+// or
+
+class Accountbalance1 {
+    private balance :number;
+
+    constructor(initialbalance: number) {
+        this.balance = initialbalance
+    }
+    
+    getBalance() {
+        return this.balance;
+    }
+}
+
+const account = new Accountbalance1(70000);
+console.log(account.getBalance());
+
+
+
+
+
+// Protected - Inheritance-Based Access
+// accessible inside class and child classes
+// not accessible outside
+
+
+class Animals {
+    protected name: string;
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
+class Dog extends Animals {
+    bark() {
+        console.log(this.name)
+    }
+}
+
+
+// extending a class
+
+class Animal4 {
+    move():void{
+        console.log("animal is moving");
+    }
+}
+
+class dog1 extends Animal4 {
+    bark():void {
+        console.log("dog is barking")
+    }
+}
+
+const Dog1 = new dog1();
+Dog1.move();
+Dog1.bark()
+
+
+// Implementing aAn Interface
 
 //                                               Typescript casting 
 
