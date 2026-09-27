@@ -898,6 +898,8 @@ class Dog extends Animals {
 
 
 // extending a class
+// its means creating a new class that inherits properties and methods from an existing class
+// this is called inheritance , one of the core concept oF OOP(OBJECT-ORIENTED PROGRAMMING)
 
 class Animal4 {
     move():void{
@@ -917,6 +919,60 @@ Dog1.bark()
 
 
 // Implementing aAn Interface
+// It means a class must follow the structure (contract) defined by that interface.
+
+interface persons {
+    name: string;
+    greet():void;
+}
+
+class studentss implements persons {
+    name: string;
+    constructor(name:string){
+        this.name= name;
+    }
+
+    greet(){
+        console.log("hello")
+    }
+}
+
+
+// ABSTRACT CLASS
+// ITS A BASE CLASS THAT CANNOT BE INSTANTIATED DIRECTLY
+
+abstract class Anumanu {
+    abstract makeSound():void;
+
+    move(){
+        console.log("moving.....")
+    }
+}
+
+class Dogs extends Anumanu {
+    makeSound():void {
+        console.log("Bark")
+    }
+}
+
+const Dogging = new Dogs();
+Dogging.makeSound();
+Dogging.move();
+
+
+
+abstract class Bubu {
+    constructor (public name: string){}
+
+        abstract getRole():String;
+
+}
+
+class studont extends Bubu {
+    getRole():string {
+        return "student"
+    }
+}
 
 //                                               Typescript casting 
 
