@@ -684,6 +684,7 @@ type Usser1 = {
 }
 
 // Partial
+// it means
 
 type PartialUser1 = Partial<Usser1>;
 
@@ -705,9 +706,9 @@ type Usser2 = {
 
 // Pick
 
-type PartialUser2 = Pick<Usser2, "name" | "email">;
+type PickedlUser2 = Pick<Usser2, "name" | "email">;
 
-const Picked : PartialUser2 = {
+const Picked : PickedlUser2 = {
     name: "ada",
     email: "bncbnbckn",
     // "password" : "jlajlc" ..... Error because password is not picked
@@ -974,9 +975,63 @@ class studont extends Bubu {
     }
 }
 
+
+// getter and setter
+// are special methods used to control access to the properties and add logic when reading and writing values
+
+class usersp {
+    private _age: number = 0;
+
+    get age():number{
+        return this._age
+    }
+
+    set age(value:number){
+        if(value < 0){
+            console.log("age cannot be negative");
+            return;
+        }
+
+        this._age = value
+    }
+}
+
+const userpro = new usersp();
+userpro.age = -100    //this will throw you error because its less than 0
+
+
+// OOP 
+
+class classnames<T> {
+    property: T;
+
+    constructor(value:T){
+        this.property = value
+    }
+}
+
+
+
 //                                               Typescript casting 
 
 let x: unknown = 'hello';
 console.log((x as string).length);
 
 
+class boxes<T>{
+    value:T;
+
+    constructor(value:T){
+        this.value= value
+
+    }
+}
+
+const numberbox = new boxes<number>(29);
+const stringbox = new boxes<string>("hello");
+
+class Pair<k, v> {
+    constructor(public key:k, public value:v){}
+}
+
+const pairs = new Pair<string, number>("age", 25)
