@@ -1035,3 +1035,39 @@ class Pair<k, v> {
 }
 
 const pairs = new Pair<string, number>("age", 25)
+
+
+//                                                    generate
+
+function getLength<T extends {length:number}>(item: T):number{
+    return item.length;
+}
+
+getLength("hello")
+// getLength(9) this will give you an error because of the length
+getLength([1,2,3,4,5,6])
+
+
+//                                           multiple generate in Typescript
+
+function Pairs<T, U>(value1:T, value2:U):[T,U]{
+    return [value1, value2];
+}
+
+
+const resulters = Pairs<string, number>("age", 25)
+
+console.log(resulters);
+
+
+// Mapped types in typescript
+
+type userstring = {
+    name: string;
+    age: number
+}
+
+type optionaluser = {
+    name? : string;
+    age? : number
+}
