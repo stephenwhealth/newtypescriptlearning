@@ -1067,7 +1067,30 @@ type userstring = {
     age: number
 }
 
-type optionaluser = {
-    name? : string;
-    age? : number
+// type optionaluser = {
+//     name? : string;
+//     age? : number
+// }
+
+type NewType<T> ={
+    [K in keyof T]? : T[K];
 }
+
+type optionaluser = NewType<userstring>;
+
+
+
+// Conditional Type
+// type newtype<T> = T extends someType ? trueType : falseType;
+
+type isTring<T> = T extends string ? "yes" : "no";
+
+type text1 = isTring<string>;//yes
+type text2 = isTring<number>;//no
+
+type Response<T> = T extends string ? string[] : number[];
+
+const datass1 : Response<string> = ['a', 'b'];
+const datass2 : Response<number> = [1, 2];
+
+
