@@ -1094,3 +1094,13 @@ const datass1 : Response<string> = ['a', 'b'];
 const datass2 : Response<number> = [1, 2];
 
 
+
+// Infer
+
+type myReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
+
+function greetings() {
+    return "hello"
+}
+
+type resulted = myReturnType<typeof greet>;
